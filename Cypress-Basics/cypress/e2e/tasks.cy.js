@@ -23,4 +23,11 @@ describe('tasks management', () => {
     cy.get('.task h2').contains('Sample Task');
     cy.get('.task p').contains('Sample Summary');
   });
+  it('should validate user input', () => {
+    cy.visit('http://localhost:5173/');
+    cy.contains('Add Task').click();
+    cy.get('.modal').contains('Add Task').click();
+    // cy.get('.error-message').should('exist');
+    cy.contains('Please provide values');
+  });
 });
