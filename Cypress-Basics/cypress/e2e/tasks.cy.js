@@ -18,6 +18,8 @@ describe('tasks management', () => {
     cy.get('#summary').type('Sample Summary');
     // cy.get('#category').select('Moderate');
     cy.get('.modal').contains('Add Task').click();
+    cy.get('.backdrop').should('not.exist');
+    cy.get('.modal').should('not.exist');
     cy.get('.task h2').contains('Sample Task');
     cy.get('.task p').contains('Sample Summary');
   });
