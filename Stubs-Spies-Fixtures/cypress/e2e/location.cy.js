@@ -16,6 +16,8 @@ describe('share location', () => {
       cy.stub(windw.navigator.clipboard, 'writeText')
         .as('copyToClipboard')
         .resolves();
+      cy.spy(windw.localStorage, 'setItem').as('storeLocation');
+      cy.spy(windw.localStorage, 'getItem').as('getStoredLocation');
     });
   });
   it('should fetch the user location', () => {
@@ -36,5 +38,9 @@ describe('share location', () => {
         new RegExp(`${latitude}.*${longitude}.*${encodeURI('John Doe')}`)
       );
     });
+    cy.get('@storeLocation').should('have.been.called');
+    cy.get('[data-cy="share-loc-btn"]').click();
+    cy.get('@getStoredLocation').should('have.been.called');
+
   });
 });
