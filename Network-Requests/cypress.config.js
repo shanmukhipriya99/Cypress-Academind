@@ -11,8 +11,8 @@ export default defineConfig({
         async seedDatabase() {
           await seed();
           return null;
-        }
-      })
+        },
+      });
     },
   },
 });
