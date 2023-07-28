@@ -10,6 +10,9 @@ describe('share location', () => {
             cb({ coords: { latitude: 39.9, longitude: 48.03 } });
           }, 100);
         });
+      cy.stub(windw.navigator.clipboard, 'writeText')
+        .as('copyToClipboard')
+        .resolves();
     });
   });
   it('should fetch the user location', () => {
@@ -21,5 +24,7 @@ describe('share location', () => {
   it('should share a location URL', () => {
     cy.get('[data-cy="name-input"]').type('John Doe');
     cy.get('[data-cy="get-loc-btn"]').click();
+    cy.get('[data-cy="share-loc-btn"]').click();
+    cy.get('@copyToClipboard').should('have.been.called');
   });
 });
